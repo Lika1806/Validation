@@ -1,9 +1,12 @@
+def find_element(name, index, args, kwargs):
+    if name in kwargs:
+        return kwargs[name]
+    return args[index]
+
+
 def validate_username(foo):
     def inner(*args, **kwargs):
-        if 'username' in kwargs:
-            username = kwargs['username']
-        else:
-            username=args[0]
+        username = find_element('username', 0, args, kwargs)
         if username.lower() not in ("admin", "root", "user") and 5<=len(username)<=20:
             for i in username:
                 if not i.isalnum():
@@ -16,10 +19,7 @@ def validate_username(foo):
 
 def validate_email(foo):
     def inner(*args, **kwargs):
-        if 'email' in kwargs:
-            email = kwargs['email']
-        else:
-            email=args[1]
+        email = find_element('email', 1, args, kwargs)
         if email:
             x = email.split('@')
             if len(x)==2 and not x[0].isdigit():
@@ -32,22 +32,16 @@ def validate_email(foo):
 
 def validate_phone(foo):
     def inner(*args, **kwargs):
-        if 'phone' in kwargs:
-            phone = kwargs['phone']
-        else:
-            phone=args[2]
+        phone = find_element('phone', 2, args, kwargs)
         if ( len(phone)== 12 and phone[0:4]=='+374') or (len(phone)==9 and phone[0]=='0'):
                 return foo(*args,**kwargs)
         print("phone number is Not Valid")
-        return 
+        return
     return inner
 
 def validate_pass(foo):
     def inner(*args, **kwargs):
-        if 'password' in kwargs:
-            password = kwargs['password']
-        else:
-            password=args[3]
+        password = find_element('password', 3, args, kwargs)
         if len(password)>=8:
             upper = False
             lower = False
@@ -69,14 +63,8 @@ def validate_pass(foo):
 
 def validate_re_pass(foo):
     def inner(*args, **kwargs):
-        if 'password' in kwargs:
-            password = kwargs['password']
-        else:
-            password = args[3]
-        if 're_pass' in kwargs:
-            re_pass = kwargs["re_pass"]
-        else:
-            re_pass=args[4]
+        password = find_element('password', 3, args, kwargs)
+        re_pass = find_element('re_pass', 4, args, kwargs)
         if password==re_pass:
             return foo(*args, **kwargs)
         print("wrong repeat Not Valid")
@@ -91,9 +79,8 @@ def validate_re_pass(foo):
 @validate_pass
 @validate_re_pass
 def foo(username, email, phone, password, re_pass):
-    print("You got it!!!")
+    print("You've got it!!!")
 
 
-foo( email = 'a1@gmail.com', username =  'Angela', phone = '096456789',password = 'AAAaaa111', re_pass = 'AAAaaa111' )
-
-
+foo( email = 'a1@gmail .com', username =  'Angela', phone = '096456789',password = 'AAAaaa111', re_pass = 'AAAaaa111' )
+foo('Angela', 'a1@gmail.com', '096123456', 'AAAaaa111', 'AAAaaa111')
