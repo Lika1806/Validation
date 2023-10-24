@@ -55,14 +55,11 @@ def validate_pass(foo):
             i=0
             while i<len(password) and not upper or not digit or not lower:
                 if password[i].isupper():
-                    if not upper:
-                        upper=True
+                    upper=True
                 elif password[i].islower():
-                    if not lower:
-                        lower=True
+                    lower=True
                 elif password[i].isdigit():
-                    if not digit:
-                        digit=True
+                    digit=True
                 i+=1
             if upper and lower and digit:
                 return foo(*args, **kwargs)
