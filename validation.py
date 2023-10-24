@@ -46,19 +46,22 @@ def validate_pass(foo):
             upper = False
             lower = False
             digit = False
+            spetial = False
             i=0
-            while i<len(password) and not upper or not digit or not lower:
+            while i<len(password) and (not upper or not digit or not lower or not spetial):
                 if password[i].isupper():
                     upper=True
                 elif password[i].islower():
                     lower=True
                 elif password[i].isdigit():
                     digit=True
+                elif password[i] in '!@#$%^&*':
+                    spetial = True
                 i+=1
-            if upper and lower and digit:
+            if upper and lower and digit and spetial:
                 return foo(*args, **kwargs)
         print("password is Not Valid")
-        return 
+        return
     return inner
 
 def validate_re_pass(foo):
@@ -72,7 +75,7 @@ def validate_re_pass(foo):
     return inner
 
 
-        
+
 @validate_username
 @validate_email
 @validate_phone
@@ -82,5 +85,5 @@ def foo(username, email, phone, password, re_pass):
     print("You've got it!!!")
 
 
-foo( email = 'a1@gmail.com', username =  'Angela', phone = '096456789',password = 'AAAaaa111', re_pass = 'AAAaaa111' )
-foo('Angela', 'a1@gmail.com', '096123456', 'AAAaaa111', 'AAAaaa111')
+foo( email = 'a1@gmail.com', username =  'Angela', phone = '096456789',password = 'AAAaaa111*', re_pass = 'AAAaaa111*' )
+foo('Angela', 'a1@gmail.com', '096123456', 'AAAaaa111*', 'AAAaaa111*')
