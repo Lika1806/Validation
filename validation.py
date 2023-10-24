@@ -82,5 +82,5 @@ def foo(username, email, phone, password, re_pass):
     print("You've got it!!!")
 
 
-foo( email = 'a1@gmail .com', username =  'Angela', phone = '096456789',password = 'AAAaaa111', re_pass = 'AAAaaa111' )
+foo( email = 'a1@gmail.com', username =  'Angela', phone = '096456789',password = 'AAAaaa111', re_pass = 'AAAaaa111' )
 foo('Angela', 'a1@gmail.com', '096123456', 'AAAaaa111', 'AAAaaa111')
