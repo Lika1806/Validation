@@ -20,7 +20,7 @@ def validate_username(foo):
 def validate_email(foo):
     def inner(*args, **kwargs):
         email = find_element('email', 1, args, kwargs)
-        if email:
+        if email and email.find(' ')==-1:
             x = email.split('@')
             if len(x)==2 and not x[0].isdigit():
                 x=x[1].split('.')
